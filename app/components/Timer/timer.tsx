@@ -1,7 +1,6 @@
 import { SetStateAction, useEffect, useState } from "react";
 
 import { formatTime } from "../../utils/formatTime";
-import { time } from "console";
 
 const timer = () => {
   const [inputValue, setInputValue] = useState(0);
@@ -66,7 +65,7 @@ const timer = () => {
             value={inputHour}
             onWheel={(e) => handleMouseWheel(e, setInputHour, 59)}
             placeholder="Enter time in seconds"
-            className="text-4xl  border text-center  focus:outline-none "
+            className="text-4xl border border-slate-500 rounded-l-md text-center  focus:outline-none "
             min={0}
             max={59}
           />
@@ -75,7 +74,7 @@ const timer = () => {
             value={inputMinute}
             onWheel={(e) => handleMouseWheel(e, setInputMinute, 59)}
             placeholder="Enter time in seconds"
-            className="text-4xl  border text-center  focus:outline-none "
+            className="text-4xl  border border-slate-500 text-center   focus:outline-none "
             min={0}
             max={59}
           />
@@ -83,15 +82,14 @@ const timer = () => {
             type="number"
             value={inputSecond}
             onWheel={(e) => handleMouseWheel(e, setInputSecond, 59)}
-            placeholder="Enter time in seconds"
-            className="text-4xl  border text-center  focus:outline-none "
+            className="text-4xl  border border-slate-500  rounded-r-md text-center  focus:outline-none "
             min={0}
             max={59}
           />
         </div>
       )}
 
-      <div className="flex justify-center mt-4 ">
+      <div className="flex flex-row justify-center mt-4 ">
         <button
           onClick={() => {
             setIsActive(!isActive);
@@ -105,12 +103,10 @@ const timer = () => {
               startTimer(timeLeft);
             }
           }}
-          className="bg-blue-600 mt-2 text-white px-8 py-2 rounded-md hover:bg-blue-800 transition duration-300"
+          className="bg-blue-600 mt-2 mr-6 text-white px-8 py-2 rounded-md hover:bg-blue-800 transition duration-300"
         >
           {isActive ? "Pause" : "Start"}
         </button>
-      </div>
-      <div>
         <button
           onClick={resetTimer}
           className="bg-red-600 mt-2 text-white px-8 py-2 rounded-md hover:bg-red-800 transition duration-300"
