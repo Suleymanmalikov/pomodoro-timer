@@ -1,8 +1,8 @@
-import { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { formatTime } from "../../utils/formatTime";
 
-const timer = () => {
+const Timer = () => {
   const [inputValue, setInputValue] = useState(0);
   const [inputSecond, setInputSecond] = useState(0);
   const [inputMinute, setInputMinute] = useState(0);
@@ -118,4 +118,4 @@ const timer = () => {
   );
 };
 
-export default timer;
+export default Timer;

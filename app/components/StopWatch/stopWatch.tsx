@@ -1,9 +1,8 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { formatTime } from "../../utils/formatTime";
 
-const stopWatch = () => {
+const StopWatch = () => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -46,4 +45,4 @@ const stopWatch = () => {
   );
 };
 
-export default stopWatch;
+export default StopWatch;
