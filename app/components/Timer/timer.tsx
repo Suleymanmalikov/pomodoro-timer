@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  SetStateAction,
+  useEffect,
+  useState,
+  WheelEvent,
+  Dispatch,
+} from "react";
 
 import { formatTime } from "../../utils/formatTime";
 
 const Timer = () => {
-  const [inputValue, setInputValue] = useState(0);
   const [inputSecond, setInputSecond] = useState(0);
   const [inputMinute, setInputMinute] = useState(0);
   const [inputHour, setInputHour] = useState(0);
@@ -26,7 +31,7 @@ const Timer = () => {
     return () => clearInterval(timer);
   }, [isActive, timeLeft]);
 
-  const startTimer = (time: any) => {
+  const startTimer = (time: SetStateAction<number>) => {
     setTimeLeft(time);
     setIsActive(true);
   };
@@ -35,12 +40,11 @@ const Timer = () => {
     setIsActive(false);
     setTimerStarted(false);
     setTimeLeft(0);
-    setInputValue(0);
   };
 
   const handleMouseWheel = (
-    e: React.WheelEvent<HTMLInputElement>,
-    setter: React.Dispatch<React.SetStateAction<number>>,
+    e: WheelEvent<HTMLInputElement>,
+    setter: Dispatch<React.SetStateAction<number>>,
     max: number
   ) => {
     const change = e.deltaY < 0 ? 1 : -1;

@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 
-import StopWatch from "./components/StopWatch/stopWatch";
-import SwitchButton from "./components/SwitchButton/switchButton";
-import Timer from "./components/Timer/timer";
+import StopWatch from "./components/StopWatch/StopWatch";
+import SwitchButton from "./components/SwitchButton/SwitchButton";
+import Timer from "./components/Timer/Timer";
 
 export default function Home() {
   const [isStopWatch, setIsStopWatch] = useState(true);
