@@ -10,6 +10,7 @@ const timer = () => {
   const [inputHour, setInputHour] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [timerStarted, setTimerStarted] = useState(false);
 
   const totalSeconds = inputSecond + inputMinute * 60 + inputHour * 3600;
 
@@ -22,7 +23,6 @@ const timer = () => {
       }, 1000);
     } else if (timeLeft === 0) {
       setIsActive(false);
-      console.log("Timer is done");
     }
     return () => clearInterval(timer);
   }, [isActive, timeLeft]);
@@ -34,16 +34,18 @@ const timer = () => {
 
   const resetTimer = () => {
     setIsActive(false);
+    setTimerStarted(false);
     setTimeLeft(0);
     setInputValue(0);
   };
 
   const handleMouseWheel = (
     e: React.WheelEvent<HTMLInputElement>,
-    setter: React.Dispatch<React.SetStateAction<number>>
+    setter: React.Dispatch<React.SetStateAction<number>>,
+    max: number
   ) => {
     const change = e.deltaY < 0 ? 1 : -1;
-    setter((prev) => Math.max(0, prev + change));
+    setter((prev) => Math.min(Math.max(0, prev + change), max));
   };
 
   return (
@@ -51,52 +53,56 @@ const timer = () => {
       <h1 className="text-4xl font-bold text-center text-blue-500 mt-8">
         Timer
       </h1>
-      <div>
-        <input
-          type="number"
-          value={inputHour}
-          onWheel={(e) => handleMouseWheel(e, setInputHour)}
-          placeholder="Enter time in seconds"
-          className="rounded-md border text-center focus:outline-none mt-4"
-          min={0}
-          max={59}
-        />
-        <input
-          type="number"
-          value={inputMinute}
-          onWheel={(e) => handleMouseWheel(e, setInputMinute)}
-          placeholder="Enter time in seconds"
-          className="rounded-md border text-center focus:outline-none mt-4"
-          min={0}
-          max={59}
-        />
-        <input
-          type="number"
-          value={inputSecond}
-          onWheel={(e) => handleMouseWheel(e, setInputSecond)}
-          placeholder="Enter time in seconds"
-          className="rounded-md border text-center focus:outline-none mt-4"
-          min={0}
-          max={59}
-        />
-      </div>
-      <div className="flex justify-center items-center mt-4">
-        <span className="text-2xl font-mono text-gray-700">
-          {formatTime(timeLeft)}
-        </span>
-      </div>
+      {timerStarted ? (
+        <div className="flex justify-center items-center mt-10 mb-10">
+          <span className="text-4xl font-mono text-gray-700">
+            {formatTime(timeLeft)}
+          </span>
+        </div>
+      ) : (
+        <div className="mt-10 mb-10">
+          <input
+            type="number"
+            value={inputHour}
+            onWheel={(e) => handleMouseWheel(e, setInputHour, 59)}
+            placeholder="Enter time in seconds"
+            className="text-4xl  border text-center  focus:outline-none "
+            min={0}
+            max={59}
+          />
+          <input
+            type="number"
+            value={inputMinute}
+            onWheel={(e) => handleMouseWheel(e, setInputMinute, 59)}
+            placeholder="Enter time in seconds"
+            className="text-4xl  border text-center  focus:outline-none "
+            min={0}
+            max={59}
+          />
+          <input
+            type="number"
+            value={inputSecond}
+            onWheel={(e) => handleMouseWheel(e, setInputSecond, 59)}
+            placeholder="Enter time in seconds"
+            className="text-4xl  border text-center  focus:outline-none "
+            min={0}
+            max={59}
+          />
+        </div>
+      )}
+
       <div className="flex justify-center mt-4 ">
         <button
           onClick={() => {
             setIsActive(!isActive);
             if (inputHour > 0 || inputMinute > 0 || inputSecond > 0) {
               startTimer(totalSeconds);
+              setTimerStarted(true);
               setInputHour(0);
               setInputMinute(0);
               setInputSecond(0);
             } else if (!isActive) {
               startTimer(timeLeft);
-              console.log(timeLeft);
             }
           }}
           className="bg-blue-600 mt-2 text-white px-8 py-2 rounded-md hover:bg-blue-800 transition duration-300"
