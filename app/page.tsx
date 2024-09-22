@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import StopWatch from "./components/StopWatch/StopWatch";
 import SwitchButton from "./components/SwitchButton/SwitchButton";
